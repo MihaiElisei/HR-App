@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-&e&fqua&1020#mxp%q(ce11k(qxvukca^i-b%6+2_v5onrlv9g
 DEBUG = True
 
 ALLOWED_HOSTS = ['8000-mihaielisei-hr-app-hv62v486sx.us2.codeanyapp.com']
-
+CSRF_TRUSTED_ORIGINS = ['https://8000-mihaielisei-hr-app-hv62v486sx.us2.codeanyapp.com']
 
 # Application definition
 
@@ -37,9 +37,19 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.sites',
+
+    # Allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 
     # PROJECT APPS
-    'dashboard',
+    'home',
+
+     # Other
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -54,10 +64,15 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "hr_app.urls"
 
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            TEMPLATES_DIR,
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -69,6 +84,11 @@ TEMPLATES = [
         },
     },
 ]
+
+SITE_ID = 1
+
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = "hr_app.wsgi.application"
 
@@ -118,7 +138,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
+
+# STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
