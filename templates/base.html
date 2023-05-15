@@ -47,10 +47,33 @@
 <body>
   <!-- Header Section -->
   <header class="container-fluid">
-    
+    <div class="row">
+        <div class="col-9">
+            <div class="p-3">
+                <a href="#" class="main-logo-link logo-font text-black main-logo">
+                    {% block navbar-content %}
+                        <i class="fas fa-users-cog"></i>&nbsp;&nbsp; HR-APP
+                    {% endblock navbar-content %}
+                </a>
+            </div>
+        </div>
+        <div class="col-3">
+            {% if user.is_authenticated %}
+                <div class="row ">
+                    <div class="col-6 ">
+                        <p class="p-3">You are logged in as: <span>{{ request.user }}</span></p>
+                    </div>
+                    <div class="col-6">
+                        <a href="{% url 'account_logout' %}" class="btn btn-md p-3" id="btn-nav">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url 'account_login' %}" class="btn btn-md" id="btn-nav">Login</a>
+            {% endif %}
+        </div>
+    </div>
+    <hr class="w-90">
   </header>
-
-
  
   {% if messages %}
   <div class="message-container">

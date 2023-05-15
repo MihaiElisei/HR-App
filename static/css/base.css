@@ -1,0 +1,31 @@
+html, body{
+    padding: 0;
+    height: 100%;
+    margin: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.text-black {
+    color: #000 !important;
+}
+
+.logo-font {
+    text-transform: uppercase;
+}
+
+.logo-font {
+    text-transform: uppercase;
+}
+
+.bg-black {
+    background: #000 !important;
+}
+
+.main-logo-link:hover {
+    text-decoration: none;
+}
+
+.main-logo{
+    font-size: 30px;
+}
