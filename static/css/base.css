@@ -3,7 +3,6 @@ html, body{
     height: 100%;
     margin: 0;
     max-width: 100%;
-    overflow: hidden;
 }
 
 .dahsboard-color{
@@ -128,3 +127,15 @@ html, body{
     }
   }
 
+  .form-wrapper::-webkit-scrollbar,
+  #list-tab::-webkit-scrollbar,
+  ul::-webkit-scrollbar,
+  .no-scroll::-webkit-scrollbar,
+  .scroll-form::-webkit-scrollbar{
+      display: none;
+  }
+
+  .scroll-form{
+    overflow: scroll;
+    max-height: 80vh;
+ }
