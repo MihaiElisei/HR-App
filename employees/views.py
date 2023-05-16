@@ -146,3 +146,11 @@ def employee_edit_data(request, id):
 	dataset['form'] = form
 	dataset['title'] = 'edit - {0}'.format(employee.get_full_name)
 	return render(request,'employees/add_employee.html',dataset)
+
+
+# DELETE EMPLOYEE
+def delete_employee(request, id):
+    employee = Employee.objects.get(id=id)
+    employee.delete()
+    messages.success(request, "Employee Deleted Successfully!")
+    return redirect('/employees/')

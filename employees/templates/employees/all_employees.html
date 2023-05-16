@@ -99,7 +99,7 @@
                           <a href="{% url 'edit' employee.id %}" class="btn btn-sm btn-primary btn-edit" title="Edit Employee">
                             <i class="fas fa-pen"></i>
                           </a>                       
-                          <a href="#" class="btn btn-sm btn-danger btn-edit" title="Delete Employee">
+                          <a href="{% url 'delete_employee' employee.id %}" class="btn btn-sm btn-danger btn-edit" title="Delete Employee">
                             <i class="fas fa-trash"></i>
                           </a>
                         </td>
