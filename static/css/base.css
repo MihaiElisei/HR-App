@@ -6,6 +6,18 @@ html, body{
     overflow: hidden;
 }
 
+.dahsboard-color{
+    background-color:#F2DEBA; 
+}
+
+
+.teal-color{
+    background-color: #0E5E6F;
+}
+.beige-color{
+    color:#F2DEBA;
+}
+
 .text-black {
     color: #000 !important;
 }
@@ -29,3 +41,90 @@ html, body{
 .main-logo{
     font-size: 30px;
 }
+
+.sidebar-item a{
+    text-decoration: none;
+    color:#F2DEBA;
+    font-size: 20px;
+    text-align: center;
+    padding: 25px;
+}
+.sidebar-item a:hover{
+    color:#F2DEBA;
+}
+.nav-pills{
+    text-align: center!important;
+}
+.container-fluid{
+    margin: 0;
+    padding: 0;
+}
+
+/* ------------------------------
+       DASHBOARD CONFIGURATION
+--------------------------------*/
+
+.home{
+    min-width: 100%;
+    height: auto;
+}
+
+.home-logo{
+    text-align: center;
+    font-size: 200px;
+    margin-top: 30px;
+    color: #0E5E6F;
+}
+
+.home-tile{
+    min-width: 100%;
+    margin-top: 30px;
+}
+
+.title { 
+    text-align: center;
+    color: #F2DEBA;
+    text-transform: uppercase;
+    padding: 1px;
+    font-family: 'Raleway', cursive;
+    font-weight: 100;
+    position: relative;
+    background: linear-gradient(to right, #0E5E6F, #F2DEBA, #0E5E6F);
+}
+.title::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -50px;
+    width: 600px;
+    margin-left: -300px;
+    margin-top: -220px;
+    height: 600px;
+    background: radial-gradient(50% 50%, ellipse closest-side, #F2DEBA, #0E5E6F);
+    z-index: -1;
+}
+
+.title a {
+    background: #0E5E6F;
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    letter-spacing: 30px;
+    color: #F2DEBA;
+    animation: comein 1.5s 1 ease-in-out forwards;
+  }
+
+@keyframes comein {
+    0% {
+      letter-spacing: 80px;
+      color: #F2DEBA;
+    }
+    70% {
+      letter-spacing: 20px;
+    }
+    100% {
+      letter-spacing: 25px;
+      color: #F2DEBA;
+    }
+  }
+

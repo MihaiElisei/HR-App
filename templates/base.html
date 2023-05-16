@@ -49,10 +49,10 @@
     <header class="container-fluid">
         <div class="row">
             <div class="col-{% if user.is_authenticated %}3{% else %}9{% endif %}">
-                <div class="pt-3">
+                <div class="mx-3 pl-5">
                     <a href="#" class="main-logo-link logo-font text-black main-logo">
                         {% block navbar-content %}
-                        <i class="fas fa-users-cog"></i>&nbsp;&nbsp; HR-APP
+                        <i class="fas fa-users-cog"></i>&nbsp;&nbsp;HR-APP
                         {% endblock navbar-content %}
                     </a>
                 </div>
@@ -115,7 +115,6 @@
             </div>
         </div>
         </div>
-        <hr class="w-90">
     </header>
 
     {% if messages %}
