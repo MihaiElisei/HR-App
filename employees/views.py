@@ -19,7 +19,7 @@ def all_employees(request):
 			Q(firstname__icontains=query) |
 			Q(lastname__icontains=query)
 			)
-    paginator = Paginator(employees, 5)  # show 10 employees per page
+    paginator = Paginator(employees, 5)  # show 5 employees per page
     page = request.GET.get('page')
     employees_paginated = paginator.get_page(page)
 
@@ -28,3 +28,5 @@ def all_employees(request):
     dataset['all_employees'] = Employee.objects.all()
     dataset['title'] = 'All Employees'
     return render(request, 'employees/all_employees.html', dataset)
+
+
