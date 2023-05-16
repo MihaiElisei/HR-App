@@ -4,6 +4,7 @@ from django.shortcuts import render
 
 
 def index(request):
-    """ A view to return the index page """
-    
-    return render(request, 'home/index.html')
+	if request.user.is_authenticated:
+		return render(request, "home/dashboard.html")
+	else:
+		return render(request, "home/index.html")

@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
     # PROJECT APPS
     'home',
-    'dashboard',
+    'employees',
 
      # Other
     'crispy_forms',
