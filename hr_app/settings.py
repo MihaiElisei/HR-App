@@ -51,6 +51,7 @@ INSTALLED_APPS = [
      # Other
     'crispy_forms',
     'crispy_bootstrap4',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [

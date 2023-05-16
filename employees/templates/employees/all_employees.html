@@ -39,7 +39,105 @@
             </div>
         </div>
         <div class="col-10">
-            employees
+            <div class="content scroll-form">
+                <div class="container-fluid">                       
+                  <!-- Search form -->
+                  <div class="row" style="margin-bottom: 2.2rem;margin-top: 3rem;">
+                    <div class="col-lg-12">
+                      <form action="" method="GET">
+                        <div class="input-group">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default teal-color beige-color" style="margin-right: 5px;" type="button">Search</button>
+                            <a href="{% url 'employees' %}" class="btn teal-color beige-color" style="margin-right: 5px;"><i class="fas fa-sync-alt"></i></a>
+                          </span>
+                          <input type="search" value="{{request.GET.search}}" name="search" class="form-control search" placeholder="Search by First Name or Last Name..." style="border-radius: 5px;">
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>                
+                <!-- TABLE -->
+                <div class="table-responsive table-shadow">
+                  <div class="text-center table-description">
+                    <h4 class="table-title">ALL EMPLOYEES TABLE</h4>
+                  </div>
+                  <table class="table mt-5">
+                    <thead style="text-align: center;">
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col" class="hide">Phone No.</th>
+                        <th scope="col" class="hide">Role</th>
+                        <th scope="col">Department</th>
+                        <th scope="col" class="hide">Status</th>
+                        <th scope="col" class="hide">Created At</th>
+                        <th scope="col" style="width: 30%;">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody style="text-align: center;">
+                      {% for employee in employee_list %}
+                      <tr>
+                        {% if employee.id %}
+                          <th scope="row">{{ employee.id }}</th>
+                        {% else %}
+                          <th scope="row">-</th>
+                        {% endif %}
+                        <td>{{ employee.get_full_name }}</td>
+                        <td class="hide">{{ employee.tel }}</td>
+                        <td class="hide">{{ employee.role }}</td>
+                        <td>{{ employee.department }}</td>
+                        {% if employee.is_blocked %}
+                        <td class="hide">Inactive</td>
+                        {% else %}
+                        <td class="hide">active</td>
+                        {% endif %}
+                        <td class="hide">{{ employee.created | date:'d/m/Y (H:i)' }}</td>
+                        <td> 
+                          <a href="{% url 'employeeinfo' employee.id %}" class="btn btn-sm btn-info btn-edit" title="Profile">
+                            <i class="fas fa-user"></i>
+                          </a>
+                          <a href="/employee/profile/edit/{{ employee.id }}" class="btn btn-sm btn-primary btn-edit" title="Edit Employee">
+                            <i class="fas fa-pen"></i>
+                          </a>                       
+                          <a href="/delete_employee/{{ employee.id }}" class="btn btn-sm btn-danger btn-edit" title="Delete Employee">
+                            <i class="fas fa-trash"></i>
+                          </a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            
+                     <!-- Pagination -->
+                    <nav class="mt-5 pagination">
+                      {% if employee_list.has_other_pages %}
+                      <ul class="pagination justify-content-center">
+                          {% if employee_list.has_previous %}
+                          <a href="?page=1" class="btn teal-color beige-color mb-4" style="width: 60px; border-radius: 1px; border: 1px solid #0E5E6F;">First</a>
+                          <li class="page-item"><a href="?page={{ employee_list.previous_page_number }}" class="page-link" style="background-color: #0E5E6F!important; border: 1px solid #0E5E6F; color: #F2DEBA;"><i class="fas fa-angle-double-left"></i></a></li>
+                          {% else %}
+                          <li class="page-item disabled"></li>
+                          {% endif %}
+                          
+                          {% for i in employee_list.paginator.page_range %}
+                              {% if employee_list.number == i %}
+                              <li class="page-item active" ><span class="page-link" style="background-color: #0E5E6F!important; border: 1px solid #0E5E6F;">{{ i }}<span class="sr-only"></span></span></li>
+                              {% else %}
+                              <li class="page-item"><a href="?page={{ i }}" class="page-link" style="background-color: #0E5E6F!important; border: 1px solid #0E5E6F; color: #F2DEBA;">{{ i }}</a></li>
+                              {% endif %} 
+                          {% endfor %}
+              
+                          {% if employee_list.has_next %}
+                          <li class="page-item"><a href="?page={{ employee_list.next_page_number }}" class="page-link" style="background-color: #0E5E6F!important; border: 1px solid #0E5E6F; color: #F2DEBA;"><i class="fas fa-angle-double-right"></i></a></li>           
+                          <a href="?page={{ employee_list.paginator.num_pages }}" class="btn mb-4 teal-color beige-color" style="width: 60px; border-radius: 1px; border: 1px solid #0E5E6F; border-left: none;">Last</a>
+                          {% else %}
+                          <li class="page-item disabled"></li>
+                          {% endif %}
+                      </ul>
+                      {% endif %}
+                  </nav>
+                </div>          
+              </div> 
         </div>
     </div>
 </div>
