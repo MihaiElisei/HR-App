@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib import messages
 from .models import Leave
+from employees.models import Employee
 from .forms import *
 
 # Create your views here.
@@ -42,3 +43,13 @@ def create_leave(request):
 	dataset['form'] = form
 	dataset['title'] = 'Apply for Leave'
 	return render(request,'leaves/create_leave.html',dataset)
+
+
+# LEAVE ACTION
+def leaves_action(request,id):
+	if not (request.user.is_authenticated):
+		return redirect('/')
+
+	leave = get_object_or_404(Leave, id = id)
+	employee = Employee.objects.filter(user = leave.user)[0]
+	return render(request,'leaves/leave_action.html',{'leave':leave,'employee':employee,'title':'{0}-{1} leave'.format(leave.user.username,leave.status)})
