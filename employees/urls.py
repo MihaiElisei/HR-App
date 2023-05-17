@@ -14,4 +14,5 @@ urlpatterns = [
     path('users/<int:id>/block', views.block_users, name='block_users'),
     path('users/<int:id>/unblock', views.unblock_users, name='unblock_users'),
     path('emergency/create/', views.emergency_form, name='emergency_form'),
+    path('emergency/edit/<int:id>', views.emergency_edit, name='emergency_edit'),
 ]

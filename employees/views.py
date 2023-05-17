@@ -280,3 +280,33 @@ def emergency_form(request):
     dataset['form'] = form
     dataset['title'] = 'Create Emergency'
     return render(request,'employees/emergency.html', dataset)
+
+
+# EDIT EMERGENCY DETAILS
+def emergency_edit(request,id):
+	if not (request.user.is_authenticated and request.user.is_superuser):
+		return redirect('/')
+
+	emergency = get_object_or_404(Emergency, id = id)
+	employee = emergency.employee
+	if request.method == 'POST':
+		form = EmergencyForm( data = request.POST, instance = emergency)
+		if form.is_valid():
+			instance = form.save(commit = False)
+			instance.employee = employee
+			instance.fullname = request.POST.get('fullname')
+			instance.tel = request.POST.get('tel')
+			instance.location = request.POST.get('location')
+			instance.relationship = request.POST.get('relationship')
+
+			instance.save()
+			messages.success(request,'Emergency Details Successfully Updated')
+			return redirect('employeeinfo',id = employee.id)
+		else:
+			messages.error(request,'Error Updating Emergency Details')
+			return redirect('employeeinfo',id = employee.id)
+	dataset = dict()
+	form = EmergencyForm(request.POST or None,instance = emergency)
+	dataset['form'] = form
+	dataset['title'] = 'Updating Emergency Details for {0}'.format(employee.get_full_name)
+	return render(request,'employees/emergency.html',dataset)
