@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
-
+import datetime
 
 # NATIONALITY MODEL
 class Nationality(models.Model):
@@ -320,7 +320,20 @@ class Employee(models.Model):
             return fullname
         return
 
+    @property
+    def get_age(self):
+        current_year = datetime.date.today().year
+        dateofbirth_year = self.birthday.year
+        if dateofbirth_year:
+            return current_year - dateofbirth_year
+        return
 
+    @property
+    def birthday_today(self):
+        '''
+        returns True, if birthday is today else False
+        '''
+        return self.birthday.day == datetime.date.today().day
 
 
   

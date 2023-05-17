@@ -207,3 +207,22 @@ def user_profile(request):
 
 		return render(request,'employees/user_profile.html',dataset)
 	return HttpResponse("Sorry, you are not authorized to access this!")
+
+
+# USERS DETAILS
+def user_detail(request, id):
+    if not request.user.is_authenticated:
+        return redirect('/')
+
+    employee = get_object_or_404(Employee, id=id)
+    employee_emergency_instance = Emergency.objects.filter(employee=employee).first()
+    employee_family_instance = Relationship.objects.filter(employee=employee).first()
+    bank_instance = Bank.objects.filter(employee=employee).first()
+
+    dataset = dict()
+    dataset['employee'] = employee
+    dataset['emergency'] = employee_emergency_instance
+    dataset['family'] = employee_family_instance
+    dataset['bank'] = bank_instance
+    dataset['title'] = 'profile - {0}'.format(employee.get_full_name)
+    return render(request, 'employees/user_profile.html', dataset)

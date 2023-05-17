@@ -10,4 +10,5 @@ urlpatterns = [
     path('create-user/', views.create_user, name='create_user'),
     path('users/all/', views.all_users, name='all_users'),
     path('user-profile/', views.user_profile, name='userprofile'),
+    path('employee/profile/<int:id>/', views.user_detail, name='employeeinfo'),
 ]

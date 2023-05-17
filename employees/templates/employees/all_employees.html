@@ -93,7 +93,7 @@
                         {% endif %}
                         <td class="hide">{{ employee.created | date:'d/m/Y (H:i)' }}</td>
                         <td> 
-                          <a href="#" class="btn btn-sm btn-info btn-edit" title="Profile">
+                          <a href="{% url 'employeeinfo' employee.id %}" class="btn btn-sm btn-info btn-edit" title="Profile">
                             <i class="fas fa-user"></i>
                           </a>
                           <a href="{% url 'edit' employee.id %}" class="btn btn-sm btn-primary btn-edit" title="Edit Employee">
