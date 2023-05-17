@@ -356,28 +356,24 @@
                                                             style="overflow: scroll; max-height:50vh">
                                                             <li
                                                                 class="list-group-item teal-color beige-color profile-list">
-                                                                <span>Full Name:</span>&nbsp;&nbsp;{{ emergency.fullname
-                                                                }}
+                                                                <span>Full Name:</span>&nbsp;&nbsp;{{ emergency.fullname }}
                                                             </li>
                                                             {% if emergency.tel %}
                                                             <li
                                                                 class="list-group-item teal-color beige-color profile-list">
-                                                                <span>Phone Number:</span>&nbsp;&nbsp;{{ emergency.tel
-                                                                }}
+                                                                <span>Phone Number:</span>&nbsp;&nbsp;{{ emergency.tel }}
                                                             </li>
                                                             {% endif %}
                                                             {% if emergency.location %}
                                                             <li
                                                                 class="list-group-item teal-color beige-color profile-list">
-                                                                <span>Residence:</span>&nbsp;&nbsp;{{ emergency.location
-                                                                }}
+                                                                <span>Residence:</span>&nbsp;&nbsp;{{ emergency.location }}
                                                             </li>
                                                             {% endif %}
                                                             {% if emergency.relationship %}
                                                             <li
                                                                 class="list-group-item teal-color beige-color profile-list">
-                                                                <span>Relationship:</span>&nbsp;&nbsp;{{
-                                                                emergency.relationship }}
+                                                                <span>Relationship:</span>&nbsp;&nbsp;{{ emergency.relationship }}
                                                             </li>
                                                             {% endif %}
                                                             {% if request.user.is_superuser %}

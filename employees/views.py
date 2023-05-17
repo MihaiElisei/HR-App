@@ -248,3 +248,35 @@ def unblock_users(request,id):
 	user.is_active = True
 	user.save()
 	return redirect('all_users')
+
+
+# CREATE EMERGENCY DETAILS
+def emergency_form(request):
+    if not (request.user.is_authenticated and request.user.is_superuser and request.user.is_staff):
+        return redirect('/')
+    if request.method == 'POST':
+        form = EmergencyForm(data = request.POST)
+        if form.is_valid():
+            instance = form.save(commit = False)
+            id = request.POST.get('employee')
+
+            employee_object = Employee.objects.get(id=id)
+            name = employee_object.get_full_name
+
+            instance.employee = employee_object
+            instance.fullname = request.POST.get('fullname')
+            instance.tel = request.POST.get('tel')
+            instance.location = request.POST.get('location')
+            instance.relationship = request.POST.get('relationship')
+
+            instance.save()
+            messages.success(request,'Emergency Details Successfully Created')
+            return redirect('employees')
+        else:
+            messages.error(request,'Error Creating Emergency Details')
+            return redirect('emergency_form')
+    dataset = dict()
+    form = EmergencyForm()
+    dataset['form'] = form
+    dataset['title'] = 'Create Emergency'
+    return render(request,'employees/emergency.html', dataset)
