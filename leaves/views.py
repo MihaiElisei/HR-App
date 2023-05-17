@@ -84,3 +84,28 @@ def reject_leave(request,id):
 	leave.reject_leave
 	messages.success(request,'Leave is successfully rejected!')
 	return redirect('all_leaves')
+
+
+# ALL APPROVED LEAVES
+def approved_leaves(request):
+	if not (request.user.is_superuser and request.user.is_staff):
+		return redirect('/')
+	leaves = Leave.objects.all_approved_leaves() 
+
+	paginator = Paginator(leaves, 5)
+	page = request.GET.get('page')
+	leave_list = paginator.get_page(page)
+
+	return render(request,'leaves/approved_leaves.html',{'leave_list':leave_list})
+
+
+# ALL REJECTED LEAVES
+def rejected_leaves(request):
+	if not (request.user.is_superuser and request.user.is_staff):
+		return redirect('/')
+	leaves = Leave.objects.all_rejected_leaves() 
+	paginator = Paginator(leaves, 5)
+	page = request.GET.get('page')
+	leave_list = paginator.get_page(page)
+
+	return render(request,'leaves/rejected_leaves.html',{'leave_list':leave_list,'title':'rejected leave list'})

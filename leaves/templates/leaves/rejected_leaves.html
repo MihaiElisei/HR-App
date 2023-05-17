@@ -45,46 +45,43 @@
         </div>
         <div class="col-10">
             <div class="row">
-                <div class="col-">
-                    <h4 class="table-title">ALL LEAVES TABLE</h4>
+                <div class="col-12">
+                    <h4 class="table-title">Approved Leaves Table</h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     {% if leave_list %}
-                    <table class="table mt-5 all-tables">
+                    <table class="table mt-5">
                         <thead>
                             <tr>
                                 <th scope="col">User</th>
-                                <th scope="col">Type</th>
+                                <th scope="col" class="hide">Type</th>
                                 <th scope="col">Day(s)</th>
                                 <th scope="col">Status</th>
-                                {% if request.user.is_superuser %}
-                                <th scope="col" style="width: 30%;">Reason</th>
                                 <th scope="col">Actions</th>
-                                {% endif %}
                             </tr>
                         </thead>
                         <tbody>
                             {% for leave in leave_list %}
                             <tr>
                                 <td>{{ leave.user }}</td>
-                                <td>{{ leave.leavetype}}</td>
+                                <td class="hide">{{ leave.leavetype}}</td>
                                 <td>{{ leave.leave_days }}</td>
                                 <td>{{ leave.status }}</td>
-                                {% if request.user.is_superuser %}
-                                <td>{{ leave.reason }}</td>
                                 <td>
                                     <a href="{% url 'leaves_action' leave.id %}" title="Actions"
                                         class="btn teal-color beige-color">
                                         <i class="fas fa-directions"></i>
                                     </a>
                                 </td>
-                                {% endif %}
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% else %}
+                    <p class="no-birthdays">No Records Available!</p>
+                    {% endif %}
 
                     <!-- Pagination -->
                     <nav class="mt-5 pagination justify-content-center">
@@ -108,7 +105,8 @@
                                         class="sr-only"></span></span></li>
                             {% else %}
                             <li class="page-item"><a href="?page={{ i }}" class="page-link"
-                                    style="background-color: #0E5E6F!important; border: 1px solid #0E5E6F; color: #F2DEBA;">{{ i }}</a></li>
+                                    style="background-color: #0E5E6F!important; border: 1px solid #0E5E6F; color: #F2DEBA;">{{
+                                    i }}</a></li>
                             {% endif %}
                             {% endfor %}
 
@@ -124,9 +122,6 @@
                         </ul>
                         {% endif %}
                     </nav>
-                    {% else %}
-                    <p class="no-birthdays">No Records Available!</p>
-                    {% endif %}
                 </div>
             </div>
         </div>
