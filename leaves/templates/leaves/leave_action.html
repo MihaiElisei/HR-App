@@ -86,11 +86,11 @@
 
                             <div class="btn-group btn-group-justified p-3">
                                 {% if leave.leave_approved %}
-                                <a href="#" class="btn btn-success leave-action" name='unapprove'>UNAPPROVE</a>
+                                <a href="{% url 'unapprove_leave' leave.id %}" class="btn btn-success leave-action" name='unapprove'>UNAPPROVE</a>
                                 {% else %}
-                                <a href="#" class="btn btn-success leave-action" name='approve'>APPROVE</a>
+                                <a href="{% url 'aprove_leave' leave.id %}" class="btn btn-success leave-action" name='approve'>APPROVE</a>
                                 {% endif %}
-                                <a href="#" class="btn btn-danger leave-action" name='reject'>REJECT</a>
+                                <a href="{% url 'reject' leave.id %}" class="btn btn-danger leave-action" name='reject'>REJECT</a>
                             </div>
                             {% endif %}
                         </div>

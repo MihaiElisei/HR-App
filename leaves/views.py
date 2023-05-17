@@ -53,3 +53,34 @@ def leaves_action(request,id):
 	leave = get_object_or_404(Leave, id = id)
 	employee = Employee.objects.filter(user = leave.user)[0]
 	return render(request,'leaves/leave_action.html',{'leave':leave,'employee':employee,'title':'{0}-{1} leave'.format(leave.user.username,leave.status)})
+
+
+# APROVE LEAVE
+def approve_leave(request,id):
+	if not (request.user.is_superuser and request.user.is_authenticated):
+		return redirect('/')
+	leave = get_object_or_404(Leave, id = id)
+	user = leave.user
+	employee = Employee.objects.filter(user = user)
+	leave.approve_leave
+
+	messages.success(request,'Leave successfully approved!')
+	return redirect('all_leaves')
+
+
+# UNAPPROVE LEAVE
+def unapprove_leave(request,id):
+	if not (request.user.is_authenticated and request.user.is_superuser):
+		return redirect('/')
+	leave = get_object_or_404(Leave, id = id)
+	leave.unapprove_leave
+	messages.success(request,'Leave successfully unapproved!')
+	return redirect('leaves_action', id=id)
+
+# REJECT LEAVE
+def reject_leave(request,id):
+	dataset = dict()
+	leave = get_object_or_404(Leave, id = id)
+	leave.reject_leave
+	messages.success(request,'Leave is successfully rejected!')
+	return redirect('all_leaves')
