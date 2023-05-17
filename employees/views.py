@@ -177,3 +177,14 @@ def create_user(request):
     dataset['form'] = form
     dataset['title'] = 'register users'
     return render(request,'employees/create_user.html', dataset)
+
+
+# VIEW ALL USERS
+def all_users(request):
+    employees = Employee.objects.all()
+
+    paginator = Paginator(employees,5)  
+    page = request.GET.get('page')
+    employees_paginated = paginator.get_page(page)
+
+    return render(request,'employees/all_users.html',{'employees':employees_paginated, 'title':'Users List'})
