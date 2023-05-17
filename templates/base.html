@@ -25,8 +25,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     {% endblock %}
 
-    {% block extra_css %}
-    {% endblock %}
 
     {% block corejs %}
     <script src="https://kit.fontawesome.com/69d5e813c2.js" crossorigin="anonymous"></script>
@@ -52,8 +50,8 @@
     <header class="container-fluid">
         <div class="row">
             <div class="col-{% if user.is_authenticated %}3{% else %}9{% endif %}">
-                <div class="mx-3 pl-5">
-                    <a href="#" class="main-logo-link logo-font text-black main-logo">
+                <div class="m-3">
+                    <a href="{% url 'home' %}" class="main-logo-link logo-font text-black main-logo">
                         {% block navbar-content %}
                         <i class="fas fa-users-cog"></i>&nbsp;&nbsp;HR-APP
                         {% endblock navbar-content %}
@@ -63,7 +61,7 @@
             {% if user.is_authenticated %}
             {% if request.user.is_superuser %}
             <div class="col-6">
-                <nav class="navbar navbar-expand-lg">
+                <nav class="navbar navbar-expand-lg m-3">
                     <ul class="navbar-nav mr-auto mx-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle  text-black" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -106,23 +104,36 @@
                 {% if user.is_authenticated %}
                 <div class="row ">
                     <div class="col-6 ">
-                        <p class="pt-3">You are logged in as: <span>{{ request.user }}</span></p>
+                        <p class="m-3 text-center">You are logged in as: <span><strong> {{ request.user | capfirst}}</strong></span></p>
                     </div>
                     <div class="col-6">
-                        <a href="{% url 'account_logout' %}" class="btn btn-md p-3" id="btn-nav">Logout</a>
+                        <a href="{% url 'account_logout' %}" class="btn btn-md btn-black m-3">Logout</a>
                     </div>
                 </div>
                 {% else %}
-                <a href="{% url 'account_login' %}" class="btn btn-md" id="btn-nav">Login</a>
+                <a href="{% url 'account_login' %}" class="btn btn-md btn-black m-3">Login</a>
                 {% endif %}
             </div>
-        </div>
         </div>
     </header>
 
     {% if messages %}
     <div class="message-container">
-
+        {% for message in messages %}
+    {% if message.tags == 'success' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let ms = "{{ message }}";
+        swal("Perfect!", ms , "success")
+    </script>
+    {% else %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let me = "{{ message }}";
+        swal("Please try Again!", me , "error")
+    </script>
+    {% endif %}
+    {% endfor %}
     </div>
     {% endif %}
 
@@ -130,12 +141,5 @@
     {% block content %}
     {% endblock %}
 
-
-
-    {% block postloadjs %}
-   
-    {% endblock %}
-
 </body>
-
 </html>

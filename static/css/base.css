@@ -9,10 +9,38 @@ html, body{
     background-color:#F2DEBA; 
 }
 
+.dahsboard-color{
+    background-color:#F2DEBA; 
+}
+
+.btn-black {
+    background: black;
+    color: white;
+}
 
 .teal-color{
     background-color: #0E5E6F;
 }
+
+.table-title{
+    color: #0E5E6F;
+    font-size: 40px;
+}
+
+
+.add-information{
+    text-decoration: none;
+    color: #820000;
+}
+
+.btn-submit{
+    background-color: #0E5E6F;
+    color:#F2DEBA; 
+    width: 200px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
 .beige-color{
     color:#F2DEBA;
 }
@@ -39,6 +67,19 @@ html, body{
 
 .main-logo{
     font-size: 30px;
+}
+
+.textinput, .select, .dateinput, .emailinput, .numberinput, .regionalphonenumberwidget, .datetimefield {
+    border: 1px solid #0E5E6F;
+}
+
+.table{
+    -webkit-box-shadow:rgba(14,94,111, 0.16) 0px 3px 10px, rgba(14,94,111,0.23) 0px 3px 10px;
+    box-shadow :rgba(14,94,111, 0.25) 0px 3px 10px, rgba(14,94,111,0.40) 0px 3px 10px;
+}
+
+.table, .table th, .table td{
+    border: none!important;
 }
 
 .sidebar-item a{
