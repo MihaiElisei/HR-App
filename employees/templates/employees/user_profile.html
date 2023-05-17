@@ -436,7 +436,7 @@
                                                             {% if request.user.is_superuser %}
                                                             <li
                                                                 class="list-group-item teal-color beige-color profile-list">
-                                                                <a href="#"
+                                                                <a href="{% url 'bank_edit' bank.id %}"
                                                                     class="add-information">Edit</a>
                                                             </li>
                                                             {% endif %}
@@ -447,7 +447,7 @@
                                                 <h4>
                                                     {% if request.user.is_superuser %}
                                                     <p class="no-information"> No Information found! To add information
-                                                        <span><a href="#"
+                                                        <span><a href="{% url 'bank_form' %}"
                                                                 class="add-information">Click Here</a></span></p>
                                                     {% else%}
                                                     <p>No Information found!</p>

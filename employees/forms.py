@@ -33,3 +33,9 @@ class FamilyForm(forms.ModelForm):
 	class Meta:
 		model = Relationship
 		fields = ['employee', 'status', 'spouse', 'occupation', 'tel', 'children', 'nextofkin', 'contact', 'relationship', 'father', 'mother']
+
+# CREATE BANK FORM
+class BankAccountForm(forms.ModelForm):
+	class Meta:
+		model = Bank
+		fields = ['employee', 'name', 'branch', 'account', 'salary']

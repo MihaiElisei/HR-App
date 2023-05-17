@@ -387,4 +387,69 @@ def family_edit(request,id):
 
 	dataset['form'] = form
 	dataset['title'] = 'Update Family Details'
-	return render(request, 'dashboard/family.html', dataset)
+	return render(request, 'employees/family.html', dataset)
+
+
+# CREATE BANK DETAILS
+def bank_form(request):
+	if not (request.user.is_authenticated and request.user.is_superuser and request.user.is_staff):
+		return redirect('/')
+	if request.method == 'POST':
+		form = BankAccountForm(data = request.POST)
+		if form.is_valid():
+			instance = form.save(commit = False)
+			employee_id = request.POST.get('employee')
+			employee_object = get_object_or_404(Employee,id = employee_id)
+
+			instance.employee = employee_object
+			instance.name = request.POST.get('name')
+			instance.branch = request.POST.get('branch')
+			instance.account = request.POST.get('account')
+			instance.salary = request.POST.get('salary')
+
+			instance.save()
+
+			messages.success(request,'Bank Details Successfully Created')
+			return redirect('employees')
+		else:
+			messages.error(request,'Error Creating Bank Details')
+			return redirect('bank_form')
+	dataset = dict()
+	form = BankAccountForm()
+	dataset['form'] = form
+	dataset['title'] = 'Bank Details Form'
+	return render(request, 'employees/bank.html', dataset)
+
+
+# EDIT BANK DETAILS
+def bank_edit(request,id):
+	if not (request.user.is_superuser and request.user.is_authenticated):
+		return redirect('/')
+	bank_instance_obj = get_object_or_404(Bank, id = id)
+	employee = bank_instance_obj.employee
+
+	if request.method == 'POST':
+		form = BankAccountForm(request.POST, instance = bank_instance_obj)
+		if form.is_valid():
+			instance = form.save(commit = False)
+			instance.employee = employee
+
+			instance.name = request.POST.get('name')
+			instance.branch = request.POST.get('branch')
+			instance.account = request.POST.get('account')
+			instance.salary = request.POST.get('salary')
+
+			instance.save()
+
+			messages.success(request,'Bank Details Successfully Updated')
+			return redirect('employeeinfo',id = employee.id)
+		else:
+			messages.error(request,'Error Updating Bank Details')
+			return redirect('employeeinfo',id = employee.id)
+	dataset = dict()
+
+	form = BankAccountForm(request.POST or None,instance = bank_instance_obj)
+	
+	dataset['form'] = form
+	dataset['title'] = 'Update Bank Account'
+	return render(request,'employees/bank.html',dataset)
