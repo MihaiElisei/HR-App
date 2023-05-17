@@ -213,7 +213,7 @@
                                                             {% if request.user.is_superuser %}
                                                             <li
                                                                 class="list-group-item teal-color beige-color profile-list">
-                                                                <a href="/employee/profile/edit/{{ employee.id }}"
+                                                                <a href="{% url 'edit' employee.id %}"
                                                                     class="add-information">Edit</a>
                                                             </li>
                                                             {% endif %}
@@ -263,36 +263,31 @@
                                                             {% if family.occupation %}
                                                             <li
                                                                 class="list-group-item teal-color beige-color profile-list">
-                                                                <span>Spouse( Occupation ):</span>&nbsp;&nbsp;{{
-                                                                family.occupation }}
+                                                                <span>Spouse( Occupation ):</span>&nbsp;&nbsp;{{ family.occupation }}
                                                             </li>
                                                             {% endif %}
                                                             {% if family.tel %}
                                                             <li
                                                                 class="list-group-item teal-color beige-color profile-list">
-                                                                <span>Spouse (Phone Number):</span>&nbsp;&nbsp;{{
-                                                                family.tel }}
+                                                                <span>Spouse (Phone Number):</span>&nbsp;&nbsp;{{ family.tel }}
                                                             </li>
                                                             {% endif %}
                                                             {% if family.children %}
                                                             <li
                                                                 class="list-group-item teal-color beige-color profile-list">
-                                                                <span>Number of Children:</span>&nbsp;&nbsp;{{
-                                                                family.children }}
+                                                                <span>Number of Children:</span>&nbsp;&nbsp;{{ family.children }}
                                                             </li>
                                                             {% endif %}
                                                             {% if family.nextofkin %}
                                                             <li
                                                                 class="list-group-item teal-color beige-color profile-list">
-                                                                <span>Next of Kin (Contact):</span>&nbsp;&nbsp;{{
-                                                                family.nextofkin }}
+                                                                <span>Next of Kin (Contact):</span>&nbsp;&nbsp;{{ family.nextofkin }}
                                                             </li>
                                                             {% endif %}
                                                             {% if family.contact %}
                                                             <li
                                                                 class="list-group-item teal-color beige-color profile-list">
-                                                                <span>Phone Number:</span>&nbsp;&nbsp;{{ family.contact
-                                                                }}
+                                                                <span>Phone Number:</span>&nbsp;&nbsp;{{ family.contact }}
                                                             </li>
                                                             {% endif %}
                                                             {% if family.relationship %}
@@ -317,7 +312,7 @@
                                                             {% if request.user.is_superuser %}
                                                             <li
                                                                 class="list-group-item teal-color beige-color profile-list">
-                                                                <a href="#"
+                                                                <a href="{% url 'family_edit' family.id %}"
                                                                     class="add-information">Edit</a>
                                                             </li>
                                                             {% endif %}
@@ -328,7 +323,7 @@
                                                 <h4>
                                                     {% if request.user.is_superuser %}
                                                     <p class="no-information p-2"> No Information found! To add information
-                                                        <span><a href="#"
+                                                        <span><a href="{% url 'family_form' %}"
                                                                 class="add-information">Click Here</a></span></p>
                                                     {% else%}
                                                     <p>No Information found!</p>

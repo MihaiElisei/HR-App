@@ -310,3 +310,81 @@ def emergency_edit(request,id):
 	dataset['form'] = form
 	dataset['title'] = 'Updating Emergency Details for {0}'.format(employee.get_full_name)
 	return render(request,'employees/emergency.html',dataset)
+
+
+# CREATE FAMILY DETAILS
+def family_form(request):
+	if not (request.user.is_authenticated and request.user.is_superuser and request.user.is_staff):
+		return redirect('/')
+		
+	if request.method == 'POST':
+		form = FamilyForm(data = request.POST)
+		
+		if form.is_valid():
+			instance = form.save(commit = False)
+			id = request.POST.get('employee')
+			employee_object = Employee.objects.get(id = id)
+			name = employee_object.get_full_name
+			
+			instance.employee = employee_object
+			instance.status = request.POST.get('status')
+			instance.spouse = request.POST.get('spouse')
+			instance.occupation = request.POST.get('occupation')
+			instance.tel = request.POST.get('tel')
+			instance.children = request.POST.get('children')
+			instance.father = request.POST.get('father')
+			instance.mother = request.POST.get('mother')
+
+			instance.save()
+			messages.success(request,'Family Details Successfully Created')
+			return redirect('employees')
+		else:
+			messages.error(request,'Error Creating Family Details')
+			return redirect('family_form')
+	dataset = dict()
+
+	form = FamilyForm()
+
+	dataset['form'] = form
+	dataset['title'] = 'Family Form'
+	return render(request,'employees/family.html',dataset)
+
+
+# EDIT FAMILY DETAILS
+def family_edit(request,id):
+	if not (request.user.is_authenticated and request.user.is_authenticated):
+		return redirect('/')
+	relation = get_object_or_404(Relationship, id = id)
+	employee = relation.employee
+
+	if request.method == 'POST':
+		form = FamilyForm(data = request.POST, instance = relation)
+		if form.is_valid():
+			instance = form.save(commit = False)
+			id = request.POST.get('employee')
+			
+			instance.employee = employee
+			instance.status = request.POST.get('status')
+			instance.spouse = request.POST.get('spouse')
+			instance.occupation = request.POST.get('occupation')
+			instance.tel = request.POST.get('tel')
+			instance.children = request.POST.get('children')
+			instance.nextofkin = request.POST.get('nextofkin')
+			instance.contact = request.POST.get('contact')
+			instance.relationship = request.POST.get('relationship')
+			instance.father = request.POST.get('father')
+			instance.mother = request.POST.get('mother')
+
+			instance.save()
+			messages.success(request,'Family Details Successfully Updated')
+			return redirect('employeeinfo',id = employee.id)
+		else:
+			messages.error(request,'Error Updating Family Details')
+			return redirect('employeeinfo',id = employee.id)
+			
+	dataset = dict()
+	form = FamilyForm(request.POST or None, instance = relation)
+
+	dataset['form'] = form
+	dataset['title'] = 'Update Family Details'
+	return render(request, 'dashboard/family.html', dataset)
