@@ -139,3 +139,18 @@ html, body{
     overflow: scroll;
     max-height: 80vh;
  }
+ 
+
+ .btn-profile, .btn-profile:hover{
+    width:95%;
+    background-color: #F2DEBA;
+    margin: 10px;
+    color: #0E5E6F;
+    font-size: 20px;
+}
+
+.no-information{
+    font-size: 30px;
+    color: #F2DEBA;
+    text-align: center;
+}

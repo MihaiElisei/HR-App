@@ -188,3 +188,22 @@ def all_users(request):
     employees_paginated = paginator.get_page(page)
 
     return render(request,'employees/all_users.html',{'employees':employees_paginated, 'title':'Users List'})
+
+
+# USER PROFILE
+def user_profile(request):
+	user = request.user
+	if user.is_authenticated:
+		employee = Employee.objects.filter(user = user).first()
+		emergency = Emergency.objects.filter(employee = employee).first()
+		relationship = Relationship.objects.filter(employee = employee).first()
+		bank = Bank.objects.filter(employee = employee).first()
+
+		dataset = dict()
+		dataset['employee'] = employee
+		dataset['emergency'] = emergency
+		dataset['family'] = relationship
+		dataset['bank'] = bank
+
+		return render(request,'employees/user_profile.html',dataset)
+	return HttpResponse("Sorry, you are not authorized to access this!")

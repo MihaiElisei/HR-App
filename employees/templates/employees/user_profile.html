@@ -1,0 +1,479 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row flex-nowrap mt-0">
+        <div class="col-auto col-md-2 col-xl-2 px-sm-2 px-0 teal-color beige-color">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
+                <ul class="nav nav-pills flex-column mb-sm-auto mt-5 align-items-center align-items-sm-right" id="menu"
+                    style="width: 100%;">
+                    <li class="nav-item sidebar-item">
+                        <a href="{% url 'home' %}" class="nav-link align-middle px-0">
+                            <i class="fas fa-chart-line"></i><span class="ms-1 d-none d-sm-inline">&nbsp;
+                                Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item sidebar-item">
+                        <a href="{% url 'userprofile' %}" class="nav-link align-middle px-0">
+                            <i class="fas fa-id-card"></i><span class="ms-1 d-none d-sm-inline">&nbsp; My Profile</span>
+                        </a>
+                    </li>
+                    {% if request.user.is_superuser and request.user.is_staff %}
+                    <li class="nav-item sidebar-item">
+                        <a href="{% url 'employees' %}" class="nav-link align-middle px-0">
+                            <i class="fas fa-user"></i><span class="ms-1 d-none d-sm-inline">&nbsp; All Employees</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item sidebar-item">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <i class="fas fa-plane-departure"></i><span class="ms-1 d-none d-sm-inline">&nbsp;
+                                Leaves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item sidebar-item">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <i class="fas fa-birthday-cake"></i><span class="ms-1 d-none d-sm-inline">&nbsp;
+                                Birthdays</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="row">
+                <!-- USERNAME -->
+                <div class="row">
+                    <div class="text-center" style="padding: 20px;">
+                        <h3>
+                            <span class="table-title">{{ employee.get_full_name }}</span>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row scroll-form">
+                    <div class="col-md-6 col-sm-6" style="margin: 0; padding: 0;">
+                        <div class="text-centered">
+                            <ul class="list-group text-medium">
+                                <li class="list-group-item teal-color beige-color profile-list">
+                                    <span>Full Name:</span>&nbsp;&nbsp;{{ employee.get_full_name }}
+                                </li>
+                                <li class="list-group-item  teal-color beige-color profile-list">
+                                    <span>Nationality:</span>&nbsp;&nbsp;{{ employee.nationality}}
+                                </li>
+                                <li class="list-group-item  teal-color beige-color profile-list">
+                                    <span>Email:</span>&nbsp;{{ employee.email}}
+                                </li>
+                                <li class="list-group-item  teal-color beige-color profile-list ">
+                                    <span>Department:</span>&nbsp;&nbsp;{{ employee.department}}
+                                </li>
+                                <li class="list-group-item  teal-color beige-color profile-list">
+                                    <span>Employment Type:</span>&nbsp;&nbsp;{{ employee.employeetype}}
+                                </li>
+                                <li class="list-group-item  teal-color beige-color profile-list">
+                                    <span>Role:</span>&nbsp;&nbsp;{{ employee.role}}
+                                </li>
+                                <li class="list-group-item  teal-color beige-color profile-list">
+                                    <span>Date of Birth:</span>&nbsp;&nbsp;{{ employee.birthday}}
+                                </li>
+                                <li class="list-group-item  teal-color beige-color profile-list">
+                                    <span>Age:</span>&nbsp;&nbsp;{{ employee.get_age }}
+                                </li>
+                                {% if employee.is_blocked %}
+                                <li class="list-group-item  teal-color beige-color profile-list">
+                                    <span>Status:</span>&nbsp;&nbsp;<span style="color: red;">Inactive</span>
+                                </li>
+                                {% else %}
+                                <li class="list-group-item  teal-color beige-color profile-list">
+                                    <span>Status:</span>&nbsp;&nbsp;<span style="color: green;">Active</span>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <!-- PERSONAL DETAILS -->
+                        <div class="container teal-color no-scroll"
+                            style="margin: 0; padding: 10px; border-radius: 5px; height: 58vh; overflow: scroll;">
+                            <div class="accordion" id="accordionExample" style="background-color: transparent;">
+                                <div class="accordion-item" style="background-color: transparent; border: none;">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="btn accordion-button btn-profile" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne">
+                                            PERSONAL INFORMATIONS
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse"
+                                        aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    {% if employee %}
+                                                    <div class="list-group" role="tablist">
+                                                        <ul class="list-group text-medium"
+                                                            style="overflow: scroll; max-height:40vh;">
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Title:</span>&nbsp;&nbsp;{{ employee.title }}
+                                                            </li>
+                                                            {% if employee.firstname %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>First Name:</span>&nbsp;&nbsp; {{ employee.firstname }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.lastname %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Last Name:</span>&nbsp;&nbsp;{{ employee.lastname }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.othername %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Other Name:</span>&nbsp;&nbsp;{{ employee.othername }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.sex %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Sex:</span>&nbsp;&nbsp;{{ employee.sex }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.email %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Email:</span>&nbsp;&nbsp;{{ employee.email }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.tel %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Phone Number:</span>&nbsp;&nbsp;{{ employee.tel }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.birthday %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Date of Birth:</span>&nbsp;&nbsp;{{ employee.birthday }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.employeeid %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Employee ID:</span>&nbsp;&nbsp;{{ employee.employeeid }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.dateissued %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Date Issued (Employee ID):</span>&nbsp;&nbsp;{{ employee.dateissued }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.nationality %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Nationality:</span>&nbsp;&nbsp;{{ employee.nationality }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.address %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Address:</span>&nbsp;&nbsp;{{ employee.address }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.education %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Highest Education:</span>&nbsp;&nbsp;{{ employee.education }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.lastwork %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Last Place of Work:</span>&nbsp;&nbsp;{{ employee.lastwork }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.position %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Position (last place of
+                                                                    work):</span>&nbsp;&nbsp;{{ employee.position }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if employee.startdate %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Employement Date:</span>&nbsp;&nbsp;{{ employee.startdate }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if request.user.is_superuser %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <a href="/employee/profile/edit/{{ employee.id }}"
+                                                                    class="add-information">Edit</a>
+                                                            </li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                <h4>
+                                                    {% if request.user.is_superuser %}
+                                                    <p class="no-information"> No Information found! To add information
+                                                        <span><a href="" class="add-information">Click Here</a></span>
+                                                    </p>
+                                                    {% else%}
+                                                    <p>No Information found!</p>
+                                                    {% endif %}
+                                                </h4>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item" style="background-color: transparent; border: none;">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button class="btn accordion-button btn-profile" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo">
+                                            FAMILY INFORMATIONS
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse"
+                                        aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    {% if family %}
+                                                    <div class="list-group" id="list-tab" role="tablist">
+                                                        <ul class="list-group text-medium"
+                                                            style="overflow: scroll; max-height:50vh">
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Status:</span>&nbsp;&nbsp;{{ family.status }}
+                                                            </li>
+                                                            {% if family.spouse %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Spouse Name:</span>&nbsp;&nbsp;{{ family.spouse}}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if family.occupation %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Spouse( Occupation ):</span>&nbsp;&nbsp;{{
+                                                                family.occupation }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if family.tel %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Spouse (Phone Number):</span>&nbsp;&nbsp;{{
+                                                                family.tel }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if family.children %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Number of Children:</span>&nbsp;&nbsp;{{
+                                                                family.children }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if family.nextofkin %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Next of Kin (Contact):</span>&nbsp;&nbsp;{{
+                                                                family.nextofkin }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if family.contact %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Phone Number:</span>&nbsp;&nbsp;{{ family.contact
+                                                                }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if family.relationship %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Relationship with Next of
+                                                                    Kin:</span>&nbsp;&nbsp;{{ family.relationship }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if family.father %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Father Name:</span>&nbsp;&nbsp;{{ family.father }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if family.mother %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Mother Name:</span>&nbsp;&nbsp;{{ family.mother }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if request.user.is_superuser %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <a href="#"
+                                                                    class="add-information">Edit</a>
+                                                            </li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                <h4>
+                                                    {% if request.user.is_superuser %}
+                                                    <p class="no-information p-2"> No Information found! To add information
+                                                        <span><a href="#"
+                                                                class="add-information">Click Here</a></span></p>
+                                                    {% else%}
+                                                    <p>No Information found!</p>
+                                                    {% endif %}
+                                                </h4>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item" style="background-color: transparent; border: none;">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="btn accordion-button btn-profile" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree">
+                                            EMERGENCY INFORMATIONS
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                        aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    {% if emergency.fullname %}
+                                                    <div class="list-group" id="list-tab" role="tablist">
+                                                        <ul class="list-group text-medium"
+                                                            style="overflow: scroll; max-height:50vh">
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Full Name:</span>&nbsp;&nbsp;{{ emergency.fullname
+                                                                }}
+                                                            </li>
+                                                            {% if emergency.tel %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Phone Number:</span>&nbsp;&nbsp;{{ emergency.tel
+                                                                }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if emergency.location %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Residence:</span>&nbsp;&nbsp;{{ emergency.location
+                                                                }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if emergency.relationship %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Relationship:</span>&nbsp;&nbsp;{{
+                                                                emergency.relationship }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if request.user.is_superuser %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <a href="#"
+                                                                    class="add-information">Edit</a>
+                                                            </li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                <h4>
+                                                    {% if request.user.is_superuser %}
+                                                    <p class="no-information"> No Information found! To add information
+                                                        <span><a href="#"
+                                                                class="add-information">Click Here</a></span></p>
+                                                    {% else%}
+                                                    <p>No Information found!</p>
+                                                    {% endif %}
+                                                </h4>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item" style="background-color: transparent; border: none;">
+                                    <h2 class="accordion-header" id="headingFour">
+                                        <button class="btn accordion-button btn-profile" data-toggle="collapse" href="#collapseFour" role="button" aria-expanded="false" aria-controls="collapseFour">
+                                            BANK INFORMATIONS
+                                        </button>
+                                    </h2>
+                                    <div id="collapseFour" class="accordion-collapse collapse"
+                                        aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    {% if bank.name %}
+                                                    <div class="list-group" id="list-tab" role="tablist">
+                                                        <ul class="list-group text-medium"
+                                                            style="overflow: scroll; max-height:50vh">
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Bank Name:</span>&nbsp;&nbsp;{{ bank.name }}
+                                                            </li>
+                                                            {% if bank.account %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Account No.:</span>&nbsp;&nbsp;{{ bank.account }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if bank.branch %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Branch:</span>&nbsp;&nbsp;{{ bank.branch }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if bank.salary %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <span>Sallary:</span>&nbsp;&nbsp;{{ bank.salary }}
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if request.user.is_superuser %}
+                                                            <li
+                                                                class="list-group-item teal-color beige-color profile-list">
+                                                                <a href="#"
+                                                                    class="add-information">Edit</a>
+                                                            </li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                <h4>
+                                                    {% if request.user.is_superuser %}
+                                                    <p class="no-information"> No Information found! To add information
+                                                        <span><a href="#"
+                                                                class="add-information">Click Here</a></span></p>
+                                                    {% else%}
+                                                    <p>No Information found!</p>
+                                                    {% endif %}
+                                                </h4>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
