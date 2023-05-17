@@ -19,4 +19,5 @@ urlpatterns = [
     path('family/edit/<int:id>', views.family_edit, name='family_edit'),
     path('bank/create/', views.bank_form, name='bank_form'),
     path('bank/edit/<int:id>/', views.bank_edit, name='bank_edit'),
+    path('birthdays/', views.birthdays, name='birthdays'),
 ]

@@ -453,3 +453,25 @@ def bank_edit(request,id):
 	dataset['form'] = form
 	dataset['title'] = 'Update Bank Account'
 	return render(request,'employees/bank.html',dataset)
+
+
+# BIRTHDAYS
+def birthdays(request):	
+	if not request.user.is_authenticated:
+		return redirect('/')
+
+	employees = Employee.objects.birthdays_current_month()
+	month = datetime.date.today().strftime('%B')
+
+	paginator = Paginator(employees, 5)
+	page = request.GET.get('page')
+	employee_list = paginator.get_page(page)
+
+	context = {
+	'birthdays':employee_list,
+	'month':month,
+	'count_birthdays':employees.count(),
+	'title':'Birthdays',
+	'employee_list':employee_list,
+	}
+	return render(request,'employees/birthdays.html',context)

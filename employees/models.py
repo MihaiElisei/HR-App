@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
+from .manager import *
 import datetime
 
 # NATIONALITY MODEL
@@ -297,6 +298,8 @@ class Employee(models.Model):
     is_deleted = models.BooleanField(_('Is Deleted'),help_text='button to toggle employee deleted and undelete',default=False)
 
 
+    objects = EmployeeManager()
+
     class Meta:
         verbose_name = _('Employee')
         verbose_name_plural = _('Employees')
@@ -334,6 +337,37 @@ class Employee(models.Model):
         returns True, if birthday is today else False
         '''
         return self.birthday.day == datetime.date.today().day
+
+
+
+    @property
+    def days_check_date_fade(self):
+        '''
+        Check if Birthday has already been celebrated this month
+        '''
+        return self.birthday.day < datetime.date.today().day 
+
+    def birthday_counter(self):
+        '''
+        This method counts days to birthday -> 2 day's or 1 day
+        '''
+        today = datetime.date.today()
+        current_year = today.year
+
+        birthday = self.birthday 
+
+        future_date_of_birth = datetime.date(current_year,birthday.month,birthday.day)
+
+        if birthday:
+            if (future_date_of_birth - today).days > 1:
+
+                return str((future_date_of_birth - today).days) + ' day\'s'
+
+            else:
+
+                return ' tomorrow'
+        return
+
 
 
   
