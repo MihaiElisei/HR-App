@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row flex-nowrap mt-0">
+        <div class="col-auto col-md-2 col-xl-2 px-sm-2 px-0 teal-color beige-color">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
+                <ul class="nav nav-pills flex-column mb-sm-auto mt-5 align-items-center align-items-sm-right" id="menu"
+                    style="width: 100%;">
+                    <li class="nav-item sidebar-item">
+                        <a href="{% url 'home' %}" class="nav-link align-middle px-0">
+                            <i class="fas fa-chart-line"></i><span class="ms-1 d-none d-sm-inline">&nbsp;
+                                Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item sidebar-item">
+                        <a href="{% url 'userprofile' %}" class="nav-link align-middle px-0">
+                            <i class="fas fa-id-card"></i><span class="ms-1 d-none d-sm-inline">&nbsp; My Profile</span>
+                        </a>
+                    </li>
+                    {% if request.user.is_superuser and request.user.is_staff %}
+                    <li class="nav-item sidebar-item">
+                        <a href="{% url 'employees' %}" class="nav-link align-middle px-0">
+                            <i class="fas fa-user"></i><span class="ms-1 d-none d-sm-inline">&nbsp; All Employees</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item sidebar-item">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <i class="fas fa-plane-departure"></i><span class="ms-1 d-none d-sm-inline">&nbsp;
+                                Leaves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item sidebar-item">
+                        <a href="{% url 'birthdays' %}" class="nav-link align-middle px-0">
+                            <i class="fas fa-birthday-cake"></i><span class="ms-1 d-none d-sm-inline">&nbsp;
+                                Birthdays</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="form-wrapper scroll-form">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                        <h3 class="p-3 table-title">Leave Request</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10 col-md-12 col-sm-12 center-form">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{form | crispy }}
+                            <button type="submit" class="btn btn-md btn-block mb-3 btn-submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
