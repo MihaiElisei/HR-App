@@ -226,3 +226,25 @@ def user_detail(request, id):
     dataset['bank'] = bank_instance
     dataset['title'] = 'profile - {0}'.format(employee.get_full_name)
     return render(request, 'employees/user_profile.html', dataset)
+
+
+# BLOCK USERS
+def block_users(request,id):
+	user = get_object_or_404(User,id = id)
+	emp = Employee.objects.filter(user = user).first()
+	emp.is_blocked = True
+	emp.save()
+	user.is_active = False
+	user.save()
+	return redirect('all_users')
+
+
+# UNBLOCK USERS
+def unblock_users(request,id):
+	user = get_object_or_404(User,id = id)
+	emp = Employee.objects.filter(user = user).first()
+	emp.is_blocked = False
+	emp.save()
+	user.is_active = True
+	user.save()
+	return redirect('all_users')

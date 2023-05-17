@@ -11,4 +11,6 @@ urlpatterns = [
     path('users/all/', views.all_users, name='all_users'),
     path('user-profile/', views.user_profile, name='userprofile'),
     path('employee/profile/<int:id>/', views.user_detail, name='employeeinfo'),
+    path('users/<int:id>/block', views.block_users, name='block_users'),
+    path('users/<int:id>/unblock', views.unblock_users, name='unblock_users'),
 ]

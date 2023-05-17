@@ -74,10 +74,10 @@
                             <!-- Admin cannot block self -->
                             <td style="font-style:italic;">(admin)</td>
                             {% elif emp.user.is_active %}
-                            <td><a href="#" title="block user"><i
+                            <td><a href="{% url 'block_users' emp.user.id %}" title="block user"><i
                                         class="fas fa-lock-open" style="color: #0E5E6F;"></i></a></td>
                             {% else %}
-                            <td><a href="#" title="unblock user"><i
+                            <td><a href="{% url 'unblock_users' emp.user.id %}" title="unblock user"><i
                                         class="fas fa-lock" style="color: #0E5E6F;"></i></a></td>
                             {% endif %}
                         </tr>
