@@ -1,108 +1,207 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# HUMAN-RESOURCES APP
+# Table of Contents
+* [Introduction](#introduction)
+* [User Expereince (UX) design](#1-user-expereince-ux-design)
+    * [User Goals](#11-user-goals)
+    * [User Expectations](#12-user-expectations)
+    * [Color Scheme](#13-color-scheme)
+    * [Images and Log](#14-images-and-logo)
+    * [Site Skeleton](#15-site-skeleton)
+* [Features](#2-features)
+    * [Main Section](#main-section)
+* [Technologies Used](#3-technologies-used)
+* [Testing](#4-testing)
+    * [Testing tools](#41-testing-tools)
+    * [Manual Testing](#42-manual-testing)
+    * [Lighthouse Reports](#43-lighthouse-reports)
+* [Bugs](#5-bugs)
+* [Deployment](#6-deployment)
+* [Acknowledgement](#7-acknowledgement)
 
-Welcome USER_NAME,
+Welcome to [Human-Resources App!](https://hr-app-django.herokuapp.com/)
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+# Introduction
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+HR-App is an basic humnan resources app where a small company can manage employees. The app was build with HTML, CSS, JavaScript,Python and Django. The main purpose of the project is to Create, Read, Update and Delete (CRUD) entries in a database and display them.
 
-## Gitpod Reminders
+![dahsboard image](/static/images/dashboard.PNG)
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+# 1. User Expereince (UX) design
 
-`python3 -m http.server`
+* The app was build to 100vh;
+* The app is interactive, with nice alerts after each action;
+* The app was built mostly for admin, a regular user can only apply for leaves.
 
-A blue button should appear to click: _Make Public_,
 
-Another blue button should appear to click: _Open Browser_.
+# 1.1 User Goals
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+The app is designed for a small company. The main user of the app is an admin user because he can add other users, add emokoyees and their details;
 
-A blue button should appear to click: _Make Public_,
+# 1.2 User Expectations
 
-Another blue button should appear to click: _Open Browser_.
+The content of the app changes at every action of a user. Folloiwng user's expections ware considered while designing the site:
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+* The site structure is designed considering the expectation of users to be simple and easy to use;
+* The user interface is easy to navigate;
+* Responsive design for all screen/device sizes like mobile, tablet and desktop;
 
-To log into the Heroku toolbelt CLI:
+# 1.3 Color Scheme
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+The choice of website right foreground and background colour is essential that decides the site visitors wheather to emote the site or not. I used [Color Hunt](https://colorhunt.co/) to select the background and foreground color. Colors that i used are:
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+* #0E5E6F and #F2DEBA; - main background colors;
+* and some bootstrp5 colors: warning, info, primary, alert
 
-------
+# 1.4 Images and Logo
 
-## Release History
+This website was created for academic purposes, all photos were searched and downloaded from [Giphy website](https://giphy.com/)
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+# 1.5 Site Skeleton
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+[Balsamiq](https://balsamiq.com/) was used to create wireframes of the website. This was very useful as it gives the template of the UI. Wireframes were designed for web browser and a mobile browser format:
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+## Main Page:
+![Main page whireframe image](/static/images/skeleton.png)
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+# 2. Features
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+# Main Section
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+* Logo is placed in the top left corner;
+* I used FontAwsome for icons to the entire site;
+* Login Button is placed on the top right corner. If a user is loged in the button will change to logout
+* In the footer I have put only copyright and my name as a link witch will redirect on a new page to my website
+* The layout is the same to the entire app.
+* Sidebar with navigation links
+* A small dropdown menu on the top of the page witch is visible only for logged in users as an admin;
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+# 3. Technologies Used
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+* HTML5 was used for structuring and presenting content of the website;
+* CSS3 was used to provide the style to the content written in a HTML;
+* JavaScript was used to add some nice alerts;
+* Django was used as web framework;
+* Django Template was used as a templating language for Django to display backend data to HTML;
+* Django Allauth was used for user authentication, registration, and account management.
+* Django Crispy Form was used to control the rendering of the forms;
+* Gunicorn was used as Python WSGI HTTP Server for UNIX to support the deployment of Django application;
+* Cloudinary has been used as image management solution;
+* ElephantSQL database was used in production, as a service based on PostgreSQL;
+* Heroku was used to deploy the website
+* Balsamiq was used to create wireframes of the website;
+* Font Awsome was used to improt icons to the sites;
+* Google Fonts was used to import font-family 'Raleway' into style.css file;
+* Chrome was used to debug and test the source code using HTML5 as well as to test site responsiveness;
+* Github was used to create the repository and to store the cproject's code after pushed from Git;
+* Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub
+* Gitpod was used as the Code Editor for the site;
+* Color Hunt was used to select the background and font color in the website;
+* W3C Markup and Jigsaw validation tools were used to validate the HTML code and CSS style used in the proejct;
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+# 4. Testing
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+1. As a Site Admin I can create, read, update and delete employees,
+2. As a Site Adnmin I can add new users,
+3. As a site Andmin I can approve, unnaporve and reject leaves.
+4. As a Site User I can login after an account is created for me,
+5. As s Site User I can apply for leaves and view if the leave will be approved or not,
+6. As a Site User I can view my profile details and view birthdays. 
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+# 4. Testing
 
-------
+## 4.1 Testing tools:
 
-## FAQ about the uptime script
+* Google Developer Tools for debug and test css and JavaScript code;
+* W3C Validator Tools was used to check for any errors within my HTML pages:
+* W3C CSS Validation was used to check for any error within my CSS stylesheet:
 
-**Why have you added this script?**
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+## 4.2 Manual Testing
 
-**How will this affect me?**
+I have tested my site on multiple devices. These include:
+* Galaxy Fold (280 x 653);
+* Iphone 6/7/8 Plus (414 x 736);
+* Ipad (768 x 1024);
+* Nest Hub (1024 x 600);
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+## Main Section
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+| TEST | OUTCOME | PASS / FAIL |
+|:---:|:---:|:---:|
+| Login Button| When Login is clicked I am redirected to login page | PASS |
+| Logout Button| When Logout is clicked I am redirected to index page | PASS |
+| Responsive | All pages and elements are responsive (mobile and desktop) using differnt breakpoints. | PASS |
+| Text | Checked if all fonts and colors used are consistent or not | PASS |
 
-**So….?**
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
+## Dashboard Section
 
-**Can I opt out?**
+| TEST | OUTCOME | PASS / FAIL |
+|:---:|:---:|:---:|
+| Menus |All menus links redirect me to the right url | PASS |
+| Username | Username is displayed for the right user when he is loged in | PASS |
+| Logout Button | When I am loged in the login button change to logout | PASS |
+| Animations | All animations effects works on all pages | PASS |
+| Add Employee | Form is rendered correctly and when I submit it the new employee is added and displayed in the employees list | PASS |
+| Edit Employee | Form is rendered correctly and when I submit it the employee details are updated and displayed in the employees list | PASS |
+| Add/Edit Emergency Details | Form is rendered correctly and when I submit it the details are added to the correct employee| PASS |
+| Add/Edit Family Details | Form is rendered correctly and when I submit it the details are added to the correct employee| PASS |
+| Add/Edit Bank Details | Form is rendered correctly and when I submit it the details are added to the correct employee| PASS |
+| Add User | Form is rendered correctly and when I submit it the new user is added and displayed in the users list | PASS |
+| Create Leave | Form is rendered correctly and when I submit it the leave request will pe displayed on all leaves page | PASS |
+| Approve/Unapprove/Reject Leave | On click the leave request is updated and will be moved on the right table | PASS |
+| User Profile | On click I am redirected to the right user profile and I am able to edit it | PASS |
+| Search Employees | When I search for an employee I recive the correct one | PASS |
+| Search Employees | When I search for an employee I recive the correct one | PASS |
+| Edit/Delete Employees | I can edit and delete employees from the employees table | PASS |
+| Employees Birthdays | I can view the employees birthdays displayed from the current month | PASS |
 
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
+## 4.3 Lighthouse Reports:
 
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
+## Dashboard:
+![Lighthouse report](/static/images/dahsboard_report.PNG)
 
-**Anything more?**
+## Profile:
+![Lighthouse report](/static/images/profile.PNG)
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+## All Employees:
+![Lighthouse report](/static/images/employees.PNG)
 
----
+## All Leaves:
+![Lighthouse report](/static/images/leaves.PNG)
 
-Happy coding!
+## Birthdays:
+![Lighthouse report](/static/images/birthdays.PNG)
+
+
+
+
+# 5. Bugs
+
+* During the development process I had multiple bugs with the page rendering and content displayed. Ussualy some missed informations in my views was the problem all fixed;
+* Error when I tried to to testing for my views problem that I did not fiexd yet
+* Sidebar was not responsive so I had to rewrite the code for sidebar
+
+# 6. Deployment
+
+ The site was deployed to Render using the following steps: 
+
+ * Sign up to GutHub;
+ * Create a new repository on GitHub;
+ * Link Github projec to Heroku
+ * Add Procfile
+ * Update settings.py
+ * Add Environment Variables
+ * Automatic deployment by Heroku 
+
+
+# 7. Acknowledgement
+
+* This App was created for academic purposes, all photos were searched and downloaded from the[Giphy website](https://giphy.com/)
+* For README.md file, reference of https://github.com/dhakal79/Portfolio-project-MS1 was considered; 
+* Thanks to my mentor Marcel Mulders for his support and feedback.
