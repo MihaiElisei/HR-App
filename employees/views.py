@@ -3,11 +3,15 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.views.decorators.cache import cache_control
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 # Create your views here.
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def all_employees(request):
     if not (request.user.is_authenticated and request.user.is_superuser and request.user.is_staff):
         return redirect('/')
@@ -34,8 +38,9 @@ def all_employees(request):
     return render(request, 'employees/all_employees.html', dataset)
 
 
-
 # CREATE NEW EMPLOYEE
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def create_employee(request):
 	if not (request.user.is_authenticated and request.user.is_superuser and request.user.is_staff):
 		return redirect('/')
@@ -93,6 +98,8 @@ def create_employee(request):
 
 
 # EDIT EMPLOYEE
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def employee_edit_data(request, id):
     if not (request.user.is_authenticated and request.user.is_superuser and request.user.is_staff):
         return redirect('/')
@@ -150,6 +157,8 @@ def employee_edit_data(request, id):
 
 
 # DELETE EMPLOYEE
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def delete_employee(request, id):
     employee = Employee.objects.get(id=id)
     employee.delete()
@@ -181,6 +190,8 @@ def create_user(request):
 
 
 # VIEW ALL USERS
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def all_users(request):
     employees = Employee.objects.all()
 
@@ -192,6 +203,8 @@ def all_users(request):
 
 
 # USER PROFILE
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def user_profile(request):
 	user = request.user
 	if user.is_authenticated:
@@ -211,6 +224,8 @@ def user_profile(request):
 
 
 # USERS DETAILS
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def user_detail(request, id):
     if not request.user.is_authenticated:
         return redirect('/')
@@ -230,6 +245,8 @@ def user_detail(request, id):
 
 
 # BLOCK USERS
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def block_users(request,id):
 	user = get_object_or_404(User,id = id)
 	emp = Employee.objects.filter(user = user).first()
@@ -241,6 +258,8 @@ def block_users(request,id):
 
 
 # UNBLOCK USERS
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def unblock_users(request,id):
 	user = get_object_or_404(User,id = id)
 	emp = Employee.objects.filter(user = user).first()
@@ -252,6 +271,8 @@ def unblock_users(request,id):
 
 
 # CREATE EMERGENCY DETAILS
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def emergency_form(request):
     if not (request.user.is_authenticated and request.user.is_superuser and request.user.is_staff):
         return redirect('/')
@@ -284,6 +305,8 @@ def emergency_form(request):
 
 
 # EDIT EMERGENCY DETAILS
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def emergency_edit(request,id):
 	if not (request.user.is_authenticated and request.user.is_superuser):
 		return redirect('/')
@@ -314,6 +337,8 @@ def emergency_edit(request,id):
 
 
 # CREATE FAMILY DETAILS
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def family_form(request):
 	if not (request.user.is_authenticated and request.user.is_superuser and request.user.is_staff):
 		return redirect('/')
@@ -352,6 +377,8 @@ def family_form(request):
 
 
 # EDIT FAMILY DETAILS
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def family_edit(request,id):
 	if not (request.user.is_authenticated and request.user.is_authenticated):
 		return redirect('/')
@@ -392,6 +419,8 @@ def family_edit(request,id):
 
 
 # CREATE BANK DETAILS
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def bank_form(request):
 	if not (request.user.is_authenticated and request.user.is_superuser and request.user.is_staff):
 		return redirect('/')
@@ -423,6 +452,8 @@ def bank_form(request):
 
 
 # EDIT BANK DETAILS
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def bank_edit(request,id):
 	if not (request.user.is_superuser and request.user.is_authenticated):
 		return redirect('/')
@@ -457,6 +488,8 @@ def bank_edit(request,id):
 
 
 # BIRTHDAYS
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def birthdays(request):	
 	if not request.user.is_authenticated:
 		return redirect('/')

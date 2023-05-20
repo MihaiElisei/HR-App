@@ -30,7 +30,7 @@ DEBUG = False
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-ALLOWED_HOSTS = ['8000-mihaielisei-hr-app-hv62v486sx.us2.codeanyapp.com', 'hr-app-django.herokuapp.com']
+ALLOWED_HOSTS = ['8000-mihaielisei-hr-app-hv62v486sx.us2.codeanyapp.com', 'hr-app-django.herokuapp.com', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['https://8000-mihaielisei-hr-app-hv62v486sx.us2.codeanyapp.com', 'https://hr-app-django.herokuapp.com']
 
 # Application definition

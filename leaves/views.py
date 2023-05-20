@@ -3,12 +3,16 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib import messages
 from .models import Leave
 from employees.models import Employee
+from django.views.decorators.cache import cache_control
+from django.contrib.auth.decorators import login_required
 from .forms import *
 
 # Create your views here.
 
 
 # ALL LEAVES LIST
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def all_leaves(request):
 	leaves = Leave.objects.all_leaves()
 	if request.user.is_superuser:
@@ -21,6 +25,8 @@ def all_leaves(request):
 
 
 # CREATE LEAVE
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def create_leave(request):
 	if not request.user.is_authenticated:
 		return redirect('/')
@@ -46,6 +52,8 @@ def create_leave(request):
 
 
 # LEAVE ACTION
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def leaves_action(request,id):
 	if not (request.user.is_authenticated):
 		return redirect('/')
@@ -56,6 +64,8 @@ def leaves_action(request,id):
 
 
 # APROVE LEAVE
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def approve_leave(request,id):
 	if not (request.user.is_superuser and request.user.is_authenticated):
 		return redirect('/')
@@ -69,6 +79,8 @@ def approve_leave(request,id):
 
 
 # UNAPPROVE LEAVE
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def unapprove_leave(request,id):
 	if not (request.user.is_authenticated and request.user.is_superuser):
 		return redirect('/')
@@ -78,6 +90,8 @@ def unapprove_leave(request,id):
 	return redirect('leaves_action', id=id)
 
 # REJECT LEAVE
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def reject_leave(request,id):
 	dataset = dict()
 	leave = get_object_or_404(Leave, id = id)
@@ -87,6 +101,8 @@ def reject_leave(request,id):
 
 
 # ALL APPROVED LEAVES
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def approved_leaves(request):
 	if not (request.user.is_superuser and request.user.is_staff):
 		return redirect('/')
@@ -100,6 +116,8 @@ def approved_leaves(request):
 
 
 # ALL REJECTED LEAVES
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url="/accounts/login/")
 def rejected_leaves(request):
 	if not (request.user.is_superuser and request.user.is_staff):
 		return redirect('/')
